@@ -4,6 +4,7 @@ import axios from 'axios';
 import SearchBar from './component/SearchBar/SearchBar';
 import DisplayVideo from './component/VideoDisplay/VideoDisplay';
 import DisplayComments from './component/DisplayComments/DisplayComments';
+import CreateComment from './component/CreateComment/CreateComment';
 
 class App extends Component {
     state = { 
@@ -47,6 +48,7 @@ class App extends Component {
     <div>
       <SearchBar filterVideos = {this.filterVideos}></SearchBar>
       <DisplayVideo getSingleVideo={this.getSingleVideo}/>
+      <CreateComment />
       <DisplayComments />
     </div> );
   }
