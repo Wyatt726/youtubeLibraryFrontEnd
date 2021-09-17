@@ -3,37 +3,38 @@ import './SearchBar.css'
 
 class SearchBar extends Component {
     state = { title: ""};
-    handleSearchChanged = event => {
-        const _title = event.target.value;
-        this.setState({title:_title})
+    onSearchChanged = event => {
+        let title = event.target.value;
+        console.log(title)
+        this.setState({title: title})
     }
 
 
-    handleChange = event => {
+    onChange = event => {
         this.setState({
             [event.target.name]: event.target.value
         })
     }
 
-    handleSubmit = (event) => {
+    onSubmit = (event) => {
         event.preventDefault();
-        this.props.filterVideos(this.state.searchBar)
+        console.log(this.state.title)
+        this.props.filterVideos(this.state.title)
     }
 
-    
 
     render() { 
         return ( 
             <div className ="container">
                 <div className="row">
-                    <form onSubmit={this.handleSubmit} className='search-form'>
+                    <form onSubmit={this.onSubmit} className='search-form'>
                         <div className='form-controls'>
                             <label class=''></label>
                             <input
                                 id='search-video'
                                 type='text'
                                 value={this.state.title}
-                                handleChange={this.handleSearchChanged}
+                                onChange={this.onSearchChanged}
                                 placeholder='enter to search'
                                 />
                             <button type='submit'>Search</button>
