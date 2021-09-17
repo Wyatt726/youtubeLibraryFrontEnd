@@ -22,6 +22,14 @@ class App extends Component {
     console.log(response.data);
   }
 
+  getSingleVideo = async () => {
+    let response = await axios.get('https://www.googleapis.com/youtube/v3/search?q=car&key=AIzaSyClUkhCkXxYf5EoTPLEjZwldyMI_r0xnyI');
+    this.setState({
+      video: response.data
+    })
+    console.log(response.data);
+  }
+
   // AddNewComment = async (newComment) => {
   //   try{
   //     let response = await axios.post('', newComment)
@@ -56,7 +64,7 @@ class App extends Component {
     return ( 
     <div>
       <SearchBar filterVideos = {this.filterVideos}></SearchBar>
-      <DisplayVideo />
+      <DisplayVideo getSingleVideo={this.state.video}/>
     </div> );
   }
 }
