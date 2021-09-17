@@ -2,13 +2,11 @@ import './App.css';
 import React,{Component} from 'react';
 import axios from 'axios';
 import SearchBar from './component/SearchBar/SearchBar';
-import 
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { }
-  }
+    state = { 
+      videosInfo: [],
+     }
 
   componentDidMount(){
     this.getAllComments();
@@ -43,14 +41,6 @@ class App extends Component {
     }
     this.getAllComments();
   }
-
-  // trying to make a searchbar to search through Youtube videos through their API
-
-  // filterVideos = async (searchTerm) => {
-  //   let results = this.state.comments.filter(function(song)){
-  //     if(comments.)
-  //   }
-  // }
 
   render() { 
     return ( 

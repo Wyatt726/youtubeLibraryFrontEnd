@@ -1,15 +1,15 @@
-import React from "react";
+import React, {Component} from "react";
 import './SearchBar.css'
 
 class SearchBar extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { 
-            searchBar: ''
-         }
+    state = { title: ""};
+    handleSearchChanged = event => {
+        const _title = event.target.value;
+        this.setState({title:_title})
     }
 
-    handleChange = (event) => {
+
+    handleChange = event => {
         this.setState({
             [event.target.name]: event.target.value
         })
@@ -26,14 +26,18 @@ class SearchBar extends Component {
         return ( 
             <div className ="container">
                 <div className="row">
-                    <form onSubmit={this.handleSubmit}>
-                    <input 
-                    class='col-sm-offset-6 col-sm-3'
-                    type='text' name="searchBar" 
-                    onChange={this.handleChange} 
-                    value={this.state.searchBar} 
-                    placeholder= 'Search Videos' />
-                    <button class='searchButton'type="submit">Search</button>
+                    <form onSubmit={this.handleSubmit} className='search-form'>
+                        <div className='form-controls'>
+                            <label class=''></label>
+                            <input
+                                id='search-video'
+                                type='text'
+                                value={this.state.title}
+                                handleChange={this.handleSearchChanged}
+                                placeholder='enter to search'
+                                />
+                            <button type='submit'>Search</button>
+                        </div>
                     </form>
                 </div>
             </div>
