@@ -23,14 +23,39 @@ class App extends Component {
   }
 
   getSingleVideo = async () => {
-    let response = await axios.get('https://www.googleapis.com/youtube/v3/search?q=car&key=AIzaSyClUkhCkXxYf5EoTPLEjZwldyMI_r0xnyI');
+    debugger;
+    let response = await axios.get('https://www.googleapis.com/youtube/v3/search?q=&key=AIzaSyDwesMV6eY9pgHWVav1WEqJL_C4vwvNzb4');
     this.setState({
       video: response.data
     })
     console.log(response.data);
   }
 
-  // AddNewComment = async (newComment) => {
+
+  filterVideos = async (video) => {
+    let result = await axios.get("/search", {
+      params: {
+        q: video
+      }
+    })
+  }
+
+  render() { 
+    return ( 
+    <div>
+      <SearchBar filterVideos = {this.filterVideos}></SearchBar>
+      <DisplayVideo getSingleVideo={this.getSingleVideo}/>
+    </div> );
+  }
+}
+ 
+
+
+
+
+export default App;
+
+ // AddNewComment = async (newComment) => {
   //   try{
   //     let response = await axios.post('', newComment)
   //     console.log(response.data)
@@ -51,26 +76,3 @@ class App extends Component {
   //   }
   //   this.getAllComments();
   // }
-
-  filterVideos = async (video) => {
-    let result = await axios.get("/search", {
-      params: {
-        q: video
-      }
-    })
-  }
-
-  render() { 
-    return ( 
-    <div>
-      <SearchBar filterVideos = {this.filterVideos}></SearchBar>
-      <DisplayVideo getSingleVideo={this.state.video}/>
-    </div> );
-  }
-}
- 
-
-
-
-
-export default App;

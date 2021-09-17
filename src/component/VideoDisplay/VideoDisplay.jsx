@@ -8,9 +8,7 @@ function DisplayVideo (props){
     return (
         <div>
             <h1>This is Video Location</h1>
-            <tbody>
-                
-            </tbody>
+            <iframe src="https://www.youtube.com/watch?v=WPtpymTlZtA&ab_channel=JFJake" title='Test Test Testing 1,2,3'></iframe>
         </div>
     )
 }

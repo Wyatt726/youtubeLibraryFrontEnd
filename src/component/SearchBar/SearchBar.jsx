@@ -29,7 +29,7 @@ class SearchBar extends Component {
                 <div className="row">
                     <form onSubmit={this.onSubmit} className='search-form'>
                         <div className='form-controls'>
-                            <label class=''></label>
+                            <label className=''></label>
                             <input
                                 id='search-video'
                                 type='text'
