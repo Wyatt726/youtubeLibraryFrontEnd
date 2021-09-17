@@ -3,6 +3,7 @@ import React,{Component} from 'react';
 import axios from 'axios';
 import SearchBar from './component/SearchBar/SearchBar';
 import DisplayVideo from './component/VideoDisplay/VideoDisplay';
+import DisplayComments from './component/DisplayComments/DisplayComments';
 
 class App extends Component {
     state = { 
@@ -11,20 +12,21 @@ class App extends Component {
      }
 
   componentDidMount(){
-    this.getAllComments();
+    this.getSingleVideo();
   }
 
-  getAllComments = async () => {
-    let response = await axios.get('');
-    this.setState({
-      comments: response.data
-    })
-    console.log(response.data);
-  }
+  
+
+  // getAllComments = async () => {
+  //   let response = await axios.get('');
+  //   this.setState({
+  //     comments: response.data
+  //   })
+  //   console.log(response.data);
+  // }
 
   getSingleVideo = async () => {
-    debugger;
-    let response = await axios.get('https://www.googleapis.com/youtube/v3/search?q=&key=AIzaSyDwesMV6eY9pgHWVav1WEqJL_C4vwvNzb4');
+    let response = await axios.get('https://www.googleapis.com/youtube/v3/search?q=string&key=AIzaSyDwesMV6eY9pgHWVav1WEqJL_C4vwvNzb4');
     this.setState({
       video: response.data
     })
@@ -45,6 +47,7 @@ class App extends Component {
     <div>
       <SearchBar filterVideos = {this.filterVideos}></SearchBar>
       <DisplayVideo getSingleVideo={this.getSingleVideo}/>
+      <DisplayComments />
     </div> );
   }
 }

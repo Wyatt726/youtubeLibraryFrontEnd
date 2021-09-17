@@ -3,12 +3,19 @@ import React from "react";
 import "./VideoDisplay.css";
 
 
-
 function DisplayVideo (props){
     return (
         <div>
             <h1>This is Video Location</h1>
-            <iframe src="https://www.youtube.com/watch?v=WPtpymTlZtA&ab_channel=JFJake" title='Test Test Testing 1,2,3'></iframe>
+            <iframe
+            title="videoViewer"
+            id="ytplayer"
+            type="text/html"
+            width="640"
+            height="360"
+            src={`https://www.youtube.com/embed/OwdQFi3GR7g`}
+            frameBorder="0"
+          ></iframe>
         </div>
     )
 }
