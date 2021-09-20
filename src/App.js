@@ -1,83 +1,46 @@
-import './App.css';
-import React,{Component} from 'react';
-import axios from 'axios';
-import SearchBar from './component/SearchBar/SearchBar';
-import DisplayVideo from './component/VideoDisplay/VideoDisplay';
-import DisplayComments from './component/DisplayComments/DisplayComments';
-import CreateComment from './component/CreateComment/CreateComment';
+import "./styles.css";
+import React from "react";
+import Search from "./components/Search";
+import youtubeApi from "./api/youtube";
+import VideoList from "./components/VideoList";
+import VideoPlayer from "./components/VideoPlayer";
 
-class App extends Component {
-    state = { 
-      videosInfo: [],
-      selectedVideo: null
-     }
+export default class App extends React.Component {
+  state = {
+    videoMetaInfo: [],
+    selectedVideoId: null
+  };
 
-  componentDidMount(){
-    this.getSingleVideo();
-  }
-
-  
-
-  // getAllComments = async () => {
-  //   let response = await axios.get('');
-  //   this.setState({
-  //     comments: response.data
-  //   })
-  //   console.log(response.data);
-  // }
-
-  getSingleVideo = async () => {
-    let response = await axios.get('https://www.googleapis.com/youtube/v3/search?q=string&key=AIzaSyDwesMV6eY9pgHWVav1WEqJL_C4vwvNzb4');
+  onVideoSelected = (videoId) => {
     this.setState({
-      video: response.data
-    })
-    console.log(response.data);
-  }
+      selectedVideoId: videoId
+    });
+  };
 
-
-  filterVideos = async (video) => {
-    let result = await axios.get("/search", {
+  onSearch = async (keyword) => {
+    const response = await youtubeApi.get("/search", {
       params: {
-        q: video
+        q: keyword
       }
-    })
-  }
+    });
+    // console.log(response);
+    this.setState({
+      videoMetaInfo: response.data.items,
+      selectedVideoId: response.data.items[0].id.videoId
+    });
+    console.log(this.state);
+  };
 
-  render() { 
-    return ( 
-    <div>
-      <SearchBar filterVideos = {this.filterVideos}></SearchBar>
-      <DisplayVideo getSingleVideo={this.getSingleVideo}/>
-      <CreateComment />
-      <DisplayComments />
-    </div> );
+  render() {
+    return (
+      <div className="App">
+        <Search onSearch={this.onSearch} />
+        <VideoList
+          onVideoSelected={this.onVideoSelected}
+          data={this.state.videoMetaInfo}
+        />
+        <VideoPlayer videoId={this.state.selectedVideoId} />
+      </div>
+    );
   }
 }
- 
-
-
-
-
-export default App;
-
- // AddNewComment = async (newComment) => {
-  //   try{
-  //     let response = await axios.post('', newComment)
-  //     console.log(response.data)
-  //   }
-  //   catch(err){
-  //     console.log(err)
-  //   }
-  //   this.getAllComments();
-  // }
-
-  // DeleteComment = async (comment) => {
-  //   try{
-  //     let response = await axios.delete('' +comment);
-  //     console.log('This is working')
-  //   }
-  //   catch(err){
-  //     console.log("error in Delete Comment")
-  //   }
-  //   this.getAllComments();
-  // }
