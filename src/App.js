@@ -4,6 +4,8 @@ import Search from "./component/VideoDisplay/Search";
 import youtubeApi from './component/api_youtube/Youtube'
 import VideoList from "./component/VideoDisplay/VideoList";
 import Videoplayer from "./component/VideoDisplay/VideoPlayer";
+import CreateComment from "./component/CreateComment/CreateComment";
+import DisplayComments from "./component/DisplayComments/DisplayComments";
 
 export default class App extends React.Component {
   state = {
@@ -40,7 +42,10 @@ export default class App extends React.Component {
           data={this.state.videoMetaInfo}
         />
         <Videoplayer videoId={this.state.selectedVideoId} />
-      </div>
+        <CreateComment/>
+        <DisplayComments/>
+        </div>
+        
     );
-  }
+    }
 }
