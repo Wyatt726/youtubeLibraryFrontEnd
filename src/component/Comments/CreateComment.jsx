@@ -6,7 +6,6 @@ class CreateComment extends Component {
         super(props);
         this.state = { 
             comment: '',
-            commentLine: [{commentID:'', text:'',}],
          }
     }
 
@@ -14,6 +13,7 @@ class CreateComment extends Component {
         this.setState({
             [event.target.name]: event.target.value
         })
+        console.log(event.target.value)
     }
 
     handleSubmit = event => {
@@ -22,17 +22,8 @@ class CreateComment extends Component {
     }
 
     render() { 
-        const { commentValue, handleCommentValue, 
-            enterCommentLine, submitCommentLine} = this.props;
-            const enableCommentButton = () => {
-            return (commentValue ? false : true);
-            }
-            const changeCommentButtonStyle = () => {
-            return (commentValue ? "comments-button-enabled" : 
-            "comments-button-disabled");
-            }
         return ( 
-            <form>
+            <form className='comment-section' onSubmit={this.handleSubmit}>
                 <label>Comment Section</label>
                 <input type='text' name="comment" onChange={this.handleChange} value={this.state.comment} />
                 <button type="submit">Comment</button>

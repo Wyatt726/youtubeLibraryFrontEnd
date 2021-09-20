@@ -4,8 +4,9 @@ import Search from "./component/VideoDisplay/Search";
 import youtubeApi from './component/api_youtube/Youtube'
 import VideoList from "./component/VideoDisplay/VideoList";
 import Videoplayer from "./component/VideoDisplay/VideoPlayer";
-import CreateComment from "./component/CreateComment/CreateComment";
-import DisplayComments from "./component/DisplayComments/DisplayComments";
+import CreateComment from "./component/Comments/CreateComment";
+import DisplayComments from "./component/Comments/DisplayComment"
+import axios from "axios";
 
 export default class App extends React.Component {
   state = {
@@ -33,6 +34,24 @@ export default class App extends React.Component {
     console.log(this.state);
   };
 
+  componentDidMount(){
+    this.getAllComments();
+  }
+
+  getAllComments = async => {
+    let response = await axios.get('http://127.0.0.1:8000/youtube/')
+  }
+
+  addNewComment = async (newComment) => {
+    try{
+      let response = await axios.post('http://127.0.0.1:8000/youtube/', newComment);
+      console.log(response.data)
+    }
+    catch(err){
+
+    }
+  }
+
   render() {
     return (
       <div className="App">
@@ -43,7 +62,7 @@ export default class App extends React.Component {
         />
         <Videoplayer videoId={this.state.selectedVideoId} />
         <CreateComment/>
-        <DisplayComments/>
+        {/* <DisplayComments /> */}
         </div>
         
     );
