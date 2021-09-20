@@ -1,9 +1,9 @@
-import "./styles.css";
+import "./styles.css"
 import React from "react";
-import Search from "./components/Search";
-import youtubeApi from "./api/youtube";
-import VideoList from "./components/VideoList";
-import VideoPlayer from "./components/VideoPlayer";
+import Search from "./component/VideoDisplay/Search";
+import youtubeApi from './component/api_youtube/Youtube'
+import VideoList from "./component/VideoDisplay/VideoList";
+import Videoplayer from "./component/VideoDisplay/VideoPlayer";
 
 export default class App extends React.Component {
   state = {
@@ -39,7 +39,7 @@ export default class App extends React.Component {
           onVideoSelected={this.onVideoSelected}
           data={this.state.videoMetaInfo}
         />
-        <VideoPlayer videoId={this.state.selectedVideoId} />
+        <Videoplayer videoId={this.state.selectedVideoId} />
       </div>
     );
   }

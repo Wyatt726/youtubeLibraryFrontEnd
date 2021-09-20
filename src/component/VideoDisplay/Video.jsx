@@ -1,4 +1,5 @@
 import React from "react";
+import "./video.css"
 function selectVideo(videoIdObj, onVideoSelected) {
   onVideoSelected(videoIdObj.videoId);
 }
