@@ -22,15 +22,6 @@ class CreateComment extends Component {
     }
 
     render() { 
-        const { commentValue, handleCommentValue, 
-            enterCommentLine, submitCommentLine} = this.props;
-            const enableCommentButton = () => {
-            return (commentValue ? false : true);
-            }
-            const changeCommentButtonStyle = () => {
-            return (commentValue ? "comments-button-enabled" : 
-            "comments-button-disabled");
-            }
         return ( 
             <form>
                 <label>Comment Section</label>

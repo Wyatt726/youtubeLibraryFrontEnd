@@ -43,7 +43,7 @@ export default class App extends React.Component {
         />
         <Videoplayer videoId={this.state.selectedVideoId} />
         <CreateComment/>
-        <DisplayComments/>
+        <DisplayComments />
         </div>
         
     );
