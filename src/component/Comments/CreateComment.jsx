@@ -4,12 +4,12 @@ import React, {Component} from "react";
 class CreateComment extends Component {
     constructor(props) {
         super(props);
-        this.state = { 
-            video_id: '',
+        this.state = {
+            video_id: props.selectedVideoId,
             comment: '',
             likes: 0,
             dislikes: 0,
-            replies: '',
+            replies: null,
          }
     }
 
@@ -28,15 +28,12 @@ class CreateComment extends Component {
 
     render() { 
         return ( 
+            // Shouldn't need Input's for videoId and Replies, but keeping them in atm since we can't submit comment otherwise. Looking into.
             <form className='comment-section' onSubmit={this.handleSubmit}>
                 <label>Video Id</label>
-                <input type='number' name="video_id" onChange={this.handleChange} value={this.state.video_id} />
+                <input name="video_id" onChange={this.handleChange} value={this.state.video_id} />
                 <label>Comment Section</label>
                 <input type='text' name="comment" onChange={this.handleChange} value={this.state.comment} />
-                <label>likes</label>
-                <button onClick={this.incrementMe}> likes: {this.state.likes} </button> 
-                <label>dislikes</label>
-                <button onClick={this.decrementMe}> dislikes: {this.state.dislikes} </button> 
                 <label>Replies</label>
                 <input type='text' name="replies" onChange={this.handleChange} value={this.state.replies} />
                 <button type="submit">Comment</button>

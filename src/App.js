@@ -11,7 +11,7 @@ import axios from "axios";
 export default class App extends React.Component {
   state = {
     videoMetaInfo: [],
-    selectedVideoId: null,
+    selectedVideoId: '6MebZx-4950',
     comments: [],
     likes: [],
     dislikes: [],
@@ -55,23 +55,46 @@ export default class App extends React.Component {
       console.log(response.data)
     }
     catch(err){
-      console.log("Error in addNewComment")
+      console.log("Error in addNewComment", err)
     }
     this.getAllComments();
   }
 
-  incrementMe = () => {
-    let newCount = this.state.likes + 1
-    this.setState({
-      likes: newCount
-    })
+  updateLikeDislike = async(cashsID, likeDislikeObject) => {
+    try{
+      let response = await axios.patch(`http://127.0.0.1:8000/youtube/ld/${cashsID}`, likeDislikeObject);
+      console.log(response.data)
+    }
+    catch(err){
+      console.log("Error in updateLikeDislike", err)
+    }
+    this.getAllComments();
   }
-  decrementMe = () => {
-    let newCount = this.state.dislikes - 1
-    this.setState({
-      dislikes: newCount
-    })
+
+  incrementMe = (commentRecord) => {
+    console.log("Inside increment me")
+    commentRecord.likes += 1 
+    let newObject = {
+      "likes" : commentRecord.likes,
+      "dislikes": commentRecord.dislikes,
+    }
+  
+    this.updateLikeDislike(commentRecord.id, newObject )
+    
   }
+
+  decrementMe = (commentRecord) => {
+    console.log("Inside decrement me")
+    commentRecord.dislikes += 1 
+    let newObject = {
+      "likes" : commentRecord.likes,
+      "dislikes": commentRecord.dislikes,
+    }
+  
+    this.updateLikeDislike(commentRecord.id, newObject )
+    
+  }
+
   render() {
     return (
       <div className="App">
@@ -82,9 +105,11 @@ export default class App extends React.Component {
         />
         <Videoplayer videoId={this.state.selectedVideoId} />
         <CreateComment createNewComment ={this.addNewComment}/>
-        <DisplayComments allComments={this.state.comments}/>
+        <DisplayComments allComments={this.state.comments} incrementMe={this.incrementMe} decrementMe={this.decrementMe}/>
         </div>
         
     );
     }
 }
+
+{/* <CreateComment selectedVideoId={selectedVideoId} createNewComment ={this.addNewComment}/> */}
