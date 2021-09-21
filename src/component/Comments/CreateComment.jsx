@@ -5,7 +5,11 @@ class CreateComment extends Component {
     constructor(props) {
         super(props);
         this.state = { 
+            video_id: '',
             comment: '',
+            likes: '',
+            dislikes: '',
+            replies: '',
          }
     }
 
@@ -24,10 +28,17 @@ class CreateComment extends Component {
     render() { 
         return ( 
             <form className='comment-section' onSubmit={this.handleSubmit}>
+                <label>Video Id</label>
+                <input type='number' name="video_id" onChange={this.handleChange} value={this.state.video_id} />
                 <label>Comment Section</label>
                 <input type='text' name="comment" onChange={this.handleChange} value={this.state.comment} />
+                <label>likes</label>
+                <input type='number' name="likes" onChange={this.handleChange} value={this.state.likes} />
+                <label>dislikes</label>
+                <input type='number' name="dislikes" onChange={this.handleChange} value={this.state.dislikes} />
+                <label>Replies</label>
+                <input type='text' name="replies" onChange={this.handleChange} value={this.state.replies} />
                 <button type="submit">Comment</button>
-
             </form>
          );
     }

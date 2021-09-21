@@ -53,8 +53,9 @@ export default class App extends React.Component {
       console.log(response.data)
     }
     catch(err){
-
+      console.log("Error in addNewComment")
     }
+    this.getAllComments();
   }
 
   render() {
@@ -67,7 +68,6 @@ export default class App extends React.Component {
         />
         <Videoplayer videoId={this.state.selectedVideoId} />
         <CreateComment createNewComment ={this.addNewComment}/>
-        {console.log()}
         <DisplayComments allComments={this.state.comments}/>
         </div>
         
