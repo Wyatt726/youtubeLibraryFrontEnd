@@ -11,7 +11,8 @@ import axios from "axios";
 export default class App extends React.Component {
   state = {
     videoMetaInfo: [],
-    selectedVideoId: null
+    selectedVideoId: null,
+    comments: []
   };
 
   onVideoSelected = (videoId) => {
@@ -38,8 +39,12 @@ export default class App extends React.Component {
     this.getAllComments();
   }
 
-  getAllComments = async => {
-    let response = await axios.get('http://127.0.0.1:8000/youtube/')
+  getAllComments = async() => {
+    let response = await axios.get('http://127.0.0.1:8000/youtube/');
+    this.setState({
+      comments: response.data
+    });
+    console.log(response.data)
   }
 
   addNewComment = async (newComment) => {
@@ -61,8 +66,9 @@ export default class App extends React.Component {
           data={this.state.videoMetaInfo}
         />
         <Videoplayer videoId={this.state.selectedVideoId} />
-        <CreateComment/>
-        {/* <DisplayComments /> */}
+        <CreateComment createNewComment ={this.addNewComment}/>
+        {console.log()}
+        <DisplayComments allComments={this.state.comments}/>
         </div>
         
     );

@@ -10,6 +10,7 @@ function DisplayComments(props){
             </thead>
             {/* allComments will need to be in the render on App.js behind Class name  */}
             <tbody className='word'>
+                {console.log()}
                     {props.allComments.map((comment) => {
                         return(
                             <tr className='rows' key={comment.id}>
