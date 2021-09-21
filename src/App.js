@@ -4,13 +4,17 @@ import Search from "./component/VideoDisplay/Search";
 import youtubeApi from './component/api_youtube/Youtube'
 import VideoList from "./component/VideoDisplay/VideoList";
 import Videoplayer from "./component/VideoDisplay/VideoPlayer";
-import CreateComment from "./component/CreateComment/CreateComment";
-import DisplayComments from "./component/DisplayComments/DisplayComments";
+import CreateComment from "./component/Comments/CreateComment";
+import DisplayComments from "./component/Comments/DisplayComment"
+import axios from "axios";
 
 export default class App extends React.Component {
   state = {
     videoMetaInfo: [],
-    selectedVideoId: null
+    selectedVideoId: null,
+    comments: [],
+    likes: [],
+    dislikes: [],
   };
 
   onVideoSelected = (videoId) => {
@@ -33,6 +37,41 @@ export default class App extends React.Component {
     console.log(this.state);
   };
 
+  componentDidMount(){
+    this.getAllComments();
+  }
+
+  getAllComments = async() => {
+    let response = await axios.get('http://127.0.0.1:8000/youtube/');
+    this.setState({
+      comments: response.data
+    });
+    console.log(response.data)
+  }
+
+  addNewComment = async (newComment) => {
+    try{
+      let response = await axios.post('http://127.0.0.1:8000/youtube/', newComment);
+      console.log(response.data)
+    }
+    catch(err){
+      console.log("Error in addNewComment")
+    }
+    this.getAllComments();
+  }
+
+  incrementMe = () => {
+    let newCount = this.state.likes + 1
+    this.setState({
+      likes: newCount
+    })
+  }
+  decrementMe = () => {
+    let newCount = this.state.dislikes - 1
+    this.setState({
+      dislikes: newCount
+    })
+  }
   render() {
     return (
       <div className="App">
@@ -42,8 +81,8 @@ export default class App extends React.Component {
           data={this.state.videoMetaInfo}
         />
         <Videoplayer videoId={this.state.selectedVideoId} />
-        <CreateComment/>
-        <DisplayComments />
+        <CreateComment createNewComment ={this.addNewComment}/>
+        <DisplayComments allComments={this.state.comments}/>
         </div>
         
     );

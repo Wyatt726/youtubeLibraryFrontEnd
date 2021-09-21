@@ -23,7 +23,7 @@ class Search extends React.Component {
     return (
       <div>
         <form onSubmit={this.onSubmit}>
-          <div class="form-controls">
+          <div className="form-controls">
             <label>Search</label>
             <input
               onChange={this.onSearchChanged}
